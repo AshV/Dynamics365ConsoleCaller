@@ -29,6 +29,16 @@ namespace Dynamics365ConsoleCaller
             }
         }
 
+        public static ITracingService GetTracingService()
+        {
+            return new FakeTracingService();
+        }
+
+        public static ITracingService GetTracingService(string fileToWriteTracelogs)
+        {
+            return new FakeTracingService(fileToWriteTracelogs);
+        }
+
         public static OrganizationResponse CallAction(IOrganizationService service, string actionName, EntityReference target, Dictionary<string, object> parameters = null)
         {
             var request = new OrganizationRequest(actionName);
