@@ -12,11 +12,12 @@ namespace Dynamics365ConsoleCaller
 
         public FakeTracingService(string traceTextFile)
         {
-            TraceTextFile = traceTextFile + ".txt";
+            TraceTextFile = traceTextFile;
             File.AppendAllText(TraceTextFile, string.Format(
-                "Fake Tracing Service Instance Created at {1}{0}https://github.com/AshV/Dynamics365ConsoleCaller {0}",
+                "{2}{0}Fake Tracing Service Instance Created at {1}{0}https://github.com/AshV/Dynamics365ConsoleCaller {0}{0}",
                 Environment.NewLine,
-                DateTime.Now));
+                DateTime.Now,
+                "-------------------------------------------------------------"));
         }
 
         public void Trace(string format, params object[] args)
@@ -27,7 +28,7 @@ namespace Dynamics365ConsoleCaller
             }
             else
             {
-                File.AppendAllText(TraceTextFile, $"{Environment.NewLine}{DateTime.Now} -> {string.Format(format, args)}");
+                File.AppendAllText(TraceTextFile, $"{DateTime.Now} -> {string.Format(format, args)}{Environment.NewLine}");
             }
         }
     }
