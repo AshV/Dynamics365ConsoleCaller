@@ -4,10 +4,13 @@ using System;
 namespace Dynamics365ConsoleCaller
 {
     class Program
-    {
+    { 
         static void Main(string[] args)
         {
-            IOrganizationService service = Connect.GetOrganizationService("UID", "PWD", "https://org.api.crm.dynamics.com/XRMServices/2011/Organization.svc");
+            IOrganizationService service = Connect.GetOrganizationService(
+                "<UserID>@<OrganizationName>.onmicrosoft.com",
+                "<Your Crush's Name i.e. Your Password>",
+                "https://<OrganizationName>.api.<instance region>.dynamics.com/XRMServices/2011/Organization.svc");
             Console.WriteLine("Connected to Organization Service!");
         }
     }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel.Description;
 
 namespace Dynamics365ConsoleCaller
@@ -25,6 +27,24 @@ namespace Dynamics365ConsoleCaller
                 Console.ReadKey();
                 return null;
             }
+        }
+
+        public static OrganizationResponse CallAction(IOrganizationService service, string actionName, EntityReference target, Dictionary<string, object> parameters = null)
+        {
+            var request = new OrganizationRequest(actionName);
+
+            if (!(parameters == null))
+            {
+                parameters.ToList().ForEach(kv =>
+                {
+                    request.Parameters.Add(kv.Key, kv.Value);
+                });
+            }
+
+            request.Parameters.Add("Target", target);
+
+            var response = service.Execute(request);
+            return response;
         }
     }
 }
