@@ -4,7 +4,7 @@ using System;
 
 namespace Dynamics365ConsoleCaller
 {
-    class Program
+    class Program // BUILD BEFORE RUN TO RESTORE NuGet PACKAGES
     {
         static void Main(string[] args)
         {
@@ -17,6 +17,8 @@ namespace Dynamics365ConsoleCaller
             ITracingService tracingService = Connect.GetTracingService("AshV_Log");
 
             // Write Your Testing Code here.
+
+            var testConnection = orgService.Execute(new WhoAmIRequest());
         }
     }
 }
