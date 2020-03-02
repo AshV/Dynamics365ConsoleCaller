@@ -18,6 +18,22 @@ namespace Dynamics365ConsoleCaller
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
         }
 
+        public static IOrganizationService GetOrganizationServiceClientSecret(string clientId, string clientSecret, string organizationUri)
+        {
+            try
+            {
+                var conn = new CrmServiceClient($@"AuthType=ClientSecret;url={organizationUri};ClientId={clientId};ClientSecret={clientSecret}");
+
+                return conn.OrganizationWebProxyClient != null ? conn.OrganizationWebProxyClient : (IOrganizationService)conn.OrganizationServiceProxy;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error while connecting to CRM " + ex.Message);
+                Console.ReadKey();
+                return null;
+            }
+        }
+
         public static IOrganizationService GetOrganizationService(string userName, string password, string loginUri)
         {
             try
